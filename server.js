@@ -4,6 +4,8 @@ const mongoose = require('mongoose'); // import Mongoose
 
 const app = express();// instantiate the server
 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 app.use(require('./routes'));
 
 //connect Mongoose when the app starts

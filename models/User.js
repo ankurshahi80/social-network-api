@@ -14,31 +14,31 @@ const UserSchema = new Schema({
         required: 'You need to provide an email!',
         match:/^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/i ,
         unique: true
-    }
-//     thoughts:[
-//         {
-//             type:Schema.Types.ObjectId,
-//             ref:'Thought'
-//         }
-//     ],
-//     friends:[
-//         {
-//             type:Schema.Types.ObjectId,
-//             ref:'User'
-//         }
-//     ]
-// },
-// {
-//     toJSON:{
-//         virtuals:true
-//     },
-//     id: false
+    },
+    thoughts:[
+        {
+            type:Schema.Types.ObjectId,
+            ref:'Thought'
+        }
+    ],
+    friends:[
+        {
+            type:Schema.Types.ObjectId,
+            ref:'User'
+        }
+    ]
+},
+{
+    toJSON:{
+        virtuals:true
+    },
+    id: false
 }
 );
 
-// UserSchema.virtual('friendCount').get(function(){
-//     return this.friends.reduce((total, friend) => total+ friend.username.length+1,0);
-// })
+UserSchema.virtual('friendCount').get(function(){
+    return this.friends.reduce((total, friend) => total+ friend.username.length+1,0);
+})
 
 // create the User model using UserSchema
 const User = model('User',UserSchema);

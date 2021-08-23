@@ -9,7 +9,7 @@ const ReactionSchema = new Schema(
         },
         reactionBody: {
             type:String,
-            required: TextTrackCueList,
+            required: true,
             max: 280
         },
         username: {
@@ -47,7 +47,7 @@ const ThoughtSchema = new Schema(
             type: String,
             required: true
         },
-        reactions:[reactionSchema]
+        reactions:[ReactionSchema]
     },
     {
         toJSON: {

@@ -12,6 +12,21 @@ const thoughtController = {
       });
     },
     // get a single thougth by its _id
+    getThoughtById({params}, res) {
+        console.log(params.id);
+        Thought.findOne({_id:params.id})
+        .then(dbThoughtData => {
+            if(!dbThoughtData){
+                res.status(404).json({message: 'No Thought found with this id!'});
+                return;
+            }
+            res.json(dbThoughtData);
+        })
+        .catch(err=> {
+            console.log(err);
+            res.status(400).json(err);
+        });
+    },
     // add a new thought
     addThought({body},res){
         const {userId, ...newBody} = body;

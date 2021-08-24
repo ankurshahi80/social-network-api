@@ -1,15 +1,26 @@
 const { Thought, User } = require('../models'); // import the Thought model
 
 const thoughtController = {
+
     // get all thoughts
+    getAllThought(req, res) {
+    Thought.find({})
+      .then(dbThoughtData => res.json(dbThoughtData))
+      .catch(err => {
+        console.log(err);
+        res.sendStatus(400);
+      });
+    },
     // get a single thougth by its _id
     // add a new thought
-    addThought({params,body},res){
-        console.log(body);
-        Thought.create(body)
+    addThought({body},res){
+        const {userId, ...newBody} = body;
+        console.log(newBody);
+        
+        Thought.create(newBody)
         .then(({_id})=> {
             return User.findOneAndUpdate(
-                {_id:params.userId},
+                {_id:userId},
                 {$push:{thoughts: _id}},
                 {new:true}
             );
